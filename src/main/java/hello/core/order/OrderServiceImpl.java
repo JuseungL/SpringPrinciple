@@ -6,6 +6,8 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**클라이언트인 OrderServiceImpl이 DiscountPolicy 인터페이스 뿐만 아니라
  * FixDiscountPolicy인 구체 클래스도 함께 의존하고 있다
@@ -13,6 +15,7 @@ import hello.core.member.MemoryMemberRepository;
  * FixDiscountPolicy를 RateDiscountPolicy로 변경하는 순간
  * OrderServiceImpl의 소스 코드도 함께 변경해야 한다! -> OCP 위반
  */
+@Component
 public class OrderServiceImpl implements OrderService{
 
     //private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -23,6 +26,7 @@ public class OrderServiceImpl implements OrderService{
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
